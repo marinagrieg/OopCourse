@@ -1,6 +1,6 @@
-package ru.academits.grigoryeva.range.range_main;
+package ru.academits.grigoryeva.range_main;
 
-import ru.academits.grigoryeva.range.range.Range;
+import ru.academits.grigoryeva.range.Range;
 
 import java.util.Scanner;
 
@@ -24,8 +24,8 @@ public class Main {
             System.out.printf("Число %f не принадлежит диапазону%n%n", number1);
         }
 
-        range1.setFrom(-6);
-        range1.setTo(90);
+        range1.setFrom(-50);
+        range1.setTo(60);
 
         System.out.printf("Нижняя граница = %f%n", range1.getFrom());
         System.out.printf("Верхняя граница = %f%n", range1.getTo());
@@ -40,7 +40,7 @@ public class Main {
             System.out.printf("Число %.2f не принадлежит диапазону%n%n", number2);
         }
 
-        Range range2 = new Range(100, 120);
+        Range range2 = new Range(50, 100);
 
         System.out.println("Второй диапазон:");
 
@@ -48,12 +48,32 @@ public class Main {
         System.out.printf("Верхняя граница = %f%n", range2.getTo());
         System.out.printf("Длина = %f%n%n", range2.getLength());
 
-        Range intervalsIntersection = range1.getIntersection(range2);
+        Range rangesIntersection = range1.getIntersection(range2);
 
-        if (intervalsIntersection != null) {
-            System.out.printf("Диапазон пересечения - от %f до %f%n", intervalsIntersection.getFrom(), intervalsIntersection.getTo());
+        if (rangesIntersection != null) {
+            System.out.printf("Пересечение:%n%s%n", rangesIntersection);
         } else {
             System.out.println("Диапазоны не пересекаются");
+        }
+
+        Range[] rangesUnion = range1.getUnion(range2);
+
+        System.out.println("Объединение:");
+
+        for (Range range : rangesUnion) {
+            System.out.println(range);
+        }
+
+        Range[] rangesDifference = range1.getDifference(range2);
+
+        if (rangesDifference == null) {
+            System.out.println("Разницы нет");
+        } else {
+            System.out.println("Разница:");
+
+            for (Range range : rangesDifference) {
+                System.out.println(range);
+            }
         }
     }
 }

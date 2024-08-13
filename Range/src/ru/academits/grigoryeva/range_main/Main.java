@@ -9,10 +9,10 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Range range1 = new Range(-3, 68);
 
-        System.out.println("Первый  диапазон:");
+        System.out.println("Первый диапазон:");
 
-        System.out.printf("Верхняя граница = %f%n", range1.getFrom());
-        System.out.printf("Нижняя граница = %f%n", range1.getTo());
+        System.out.printf("Нижняя граница = %f%n", range1.getFrom());
+        System.out.printf("Верхняя граница = %f%n", range1.getTo());
         System.out.printf("Длина = %f%n", range1.getLength());
 
         System.out.println("Введите число для проверки:");
@@ -40,7 +40,7 @@ public class Main {
             System.out.printf("Число %.2f не принадлежит диапазону%n%n", number2);
         }
 
-        Range range2 = new Range(50, 100);
+        Range range2 = new Range(50, 70);
 
         System.out.println("Второй диапазон:");
 
@@ -66,10 +66,10 @@ public class Main {
 
         Range[] rangesDifference = range1.getDifference(range2);
 
-        if (rangesDifference == null) {
-            System.out.println("Разницы нет");
+        if (rangesDifference.length == 0) {
+            System.out.println("Разности нет");
         } else {
-            System.out.println("Разница:");
+            System.out.println("Разность:");
 
             for (Range range : rangesDifference) {
                 System.out.println(range);

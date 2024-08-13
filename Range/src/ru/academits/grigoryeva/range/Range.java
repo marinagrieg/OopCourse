@@ -46,7 +46,7 @@ public class Range {
 
     public Range[] getUnion(Range range) {
         if (to < range.from || from > range.to) {
-            return new Range[]{this, range};
+            return new Range[]{new Range(from, to), new Range(range.from, range.to)};
         }
 
         double unionFrom = Math.min(from, range.from);
@@ -56,36 +56,40 @@ public class Range {
     }
 
     public Range[] getDifference(Range range) {
-        Range intersection = getIntersection(range);
+        if (from >= range.from && to <= range.to) {
+            return new Range[]{};
+        }
 
-        if (intersection == null) {
+        if (to < range.from || from > range.to) {
             return new Range[]{new Range(from, to)};
         }
 
-        if (to == intersection.to && from == intersection.from) {
-            return null;
+        int size = 0;
+
+        if (from < range.from) {
+            size++;
         }
 
-        Range[] differenceTemp = new Range[2];
-        int rangesCount = 0;
-
-        if (from < intersection.from) {
-            differenceTemp[rangesCount] = new Range(from, intersection.from);
-            rangesCount++;
+        if (to > range.to) {
+            size++;
         }
 
-        if (to > intersection.to) {
-            differenceTemp[rangesCount] = new Range(intersection.to, to);
-            rangesCount++;
+        Range[] difference = new Range[size];
+        int index = 0;
+
+        if (from < range.from) {
+            difference[index++] = new Range (from, range.from);
         }
 
-        Range[] difference = new Range[rangesCount];
-        System.arraycopy(differenceTemp, 0, difference, 0, rangesCount);
+        if (to > range.to) {
+            difference[index] = new Range (range.to, to);
+        }
 
         return difference;
     }
 
+    @Override
     public String toString() {
-        return STR."от \{from} до \{to}";
+        return String.format("(%.1f; %.1f)", from, to);
     }
 }
